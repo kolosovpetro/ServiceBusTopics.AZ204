@@ -8,9 +8,37 @@ namespace ServiceBusTopics.AZ204.Sender.Controllers;
 [Route("[controller]")]
 public class ServiceBusTopicSenderController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> SubmitMessageAsync([FromBody] Message message)
+    private const string TopicOne = "topic_one";
+    private const string TopicTwo = "topic_two";
+    private readonly IServiceBusSender _serviceBusSender;
+
+    public ServiceBusTopicSenderController(IServiceBusSender serviceBusSender)
     {
-        return await Task.FromResult(Ok(message));
+        _serviceBusSender = serviceBusSender;
+    }
+
+    [HttpPost(TopicOne)]
+    public async Task<IActionResult> SubmitMessageTopicOneAsync([FromBody] Message message)
+    {
+        return await RequestAsync(message, TopicOne);
+    }
+
+    [HttpPost(TopicTwo)]
+    public async Task<IActionResult> SubmitMessageTopicTwoAsync([FromBody] Message message)
+    {
+        return await RequestAsync(message, TopicTwo);
+    }
+
+    [NonAction]
+    private async Task<IActionResult> RequestAsync(Message message, string topicName)
+    {
+        var result = await _serviceBusSender.SendMessageAsync(message, topicName);
+
+        if (!result.Success)
+        {
+            return BadRequest(result);
+        }
+
+        return Ok(result);
     }
 }

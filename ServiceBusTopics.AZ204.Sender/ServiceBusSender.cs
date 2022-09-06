@@ -34,7 +34,7 @@ public class ServiceBusSender : IServiceBusSender
 
         try
         {
-            await sender.SendMessageAsync(serviceBusMessage);
+            await sender.SendMessageAsync(serviceBusMessage).ConfigureAwait(false);
             return new CreateMessageResponse(message.Id, true, DateTime.Now, messageBody);
         }
         catch (Exception e)

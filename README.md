@@ -17,8 +17,8 @@ It is all about to show azure service bus with topics straightforward and simple
     - `az servicebus topic create --namespace-name "pkolosovsbnamespace" --name "topic_one" --resource-group "service-bus-topics-rg"`
     - `az servicebus topic create --namespace-name "pkolosovsbnamespace" --name "topic_two" --resource-group "service-bus-topics-rg"`
 - Create subscriptions:
-    - `az servicebus topic subscription create --namespace-name "pkolosovsbnamespace" --name "topic_one_subscription" --topic-name "topic_one"`
-    - `az servicebus topic subscription create --namespace-name "pkolosovsbnamespace" --name "topic_two_subscription" --topic-name "topic_two"`
+    - `az servicebus topic subscription create --resource-group "service-bus-topics-rg" --namespace-name "pkolosovsbnamespace" --name "topic_one_subscription" --topic-name "topic_one"`
+    - `az servicebus topic subscription create --resource-group "service-bus-topics-rg" --namespace-name "pkolosovsbnamespace" --name "topic_two_subscription" --topic-name "topic_two"`
 - Get service bus connection string of
   format: `Endpoint=sb://pkolosovsbnamespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=`
 

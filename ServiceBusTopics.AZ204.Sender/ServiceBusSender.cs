@@ -35,6 +35,7 @@ public class ServiceBusSender : IServiceBusSender
         try
         {
             await sender.SendMessageAsync(serviceBusMessage).ConfigureAwait(false);
+            _logger.LogInformation($"Message has been sent: {messageBody} to the topic: {message.TopicType}");
             return new CreateMessageResponse(message.Id, true, DateTime.Now, messageBody);
         }
         catch (Exception e)

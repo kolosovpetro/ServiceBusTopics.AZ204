@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ServiceBusTopics.AZ204.DTO;
@@ -20,12 +21,18 @@ public class ServiceBusTopicSenderController : ControllerBase
     [HttpPost(TopicOne)]
     public async Task<IActionResult> SubmitMessageTopicOneAsync([FromBody] Message message)
     {
+        message.TopicType = TopicType.TopicOne;
+        message.CreatedAt = DateTime.UtcNow;
+        message.Id = Guid.NewGuid();
         return await RequestAsync(message, TopicOne);
     }
 
     [HttpPost(TopicTwo)]
     public async Task<IActionResult> SubmitMessageTopicTwoAsync([FromBody] Message message)
     {
+        message.TopicType = TopicType.TopicTwo;
+        message.CreatedAt = DateTime.UtcNow;
+        message.Id = Guid.NewGuid();
         return await RequestAsync(message, TopicTwo);
     }
 
